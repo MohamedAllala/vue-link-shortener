@@ -1,34 +1,5 @@
-# vue-link-shortener
-Optimize the length of a website url 
+# Vue 3 + TypeScript + Vite
 
-## Project setup
-```
-yarn
-```
+This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-### Compiles and hot-reloads for development
-```
-yarn dev
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Customize configuration
-See [Configuration Reference](https://vitejs.dev/config/).
-
-### Dependencies
-- bootstrap
-- vue
-- vue-tsc
-- vite
-- @vitejs/plugin-vue
-- @vueuse/core  
-
-### Url shortener
-https://bitly.com/
-
-### License
-MIT
+Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
