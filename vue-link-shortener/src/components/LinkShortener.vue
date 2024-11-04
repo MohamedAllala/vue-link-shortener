@@ -1,31 +1,22 @@
 <template>
   <div class="link-shortener">
-    <div class="link-shortener__header">
-      <h1 class="link-shortener__title">
-        <span class="link-shortener__title-text">Link Shortener</span>
-      </h1>
-    </div>
-    <div class="link-shortener__content">
-     <form class="row">
-        <div class="col-md-12">
-            <div class="mb-3">
-                <label class="form-label">Link : </label>
-                <input type="text" class="form-control" v-model="link"/>
-            </div>
-            <div class="mb-3">
-                <button class="btn" :class="link.length > 0 ? 'btn-primary' : 'btn-secondary'" 
-                  :disabled="!link.length > 0" @click.prevent="shortenLinkAction">
+    
+    <div class="link-shortener__form">
+        <input type="text" class="form-control link-shortener__input"  placeholder="link goes here ..." v-model="link">
+        <button class="btn link-shortener__button" :class="link.length > 0 ? 'btn-primary' : 'btn-secondary'" 
+                :disabled="!link.length > 0" @click.prevent="shortenLinkAction">
                     shorten 
-                </button>
-            </div>
+        </button>
+    </div>
+    <div class="link-shortener__result" v-if="shortenedLink">
+        <label class="form-label"> Shortened Link : </label>
+        <div class="link-shortener__text mb-3">
+            <a class="link-shortener__text" :href="shortenedLink" target="_blank">{{ shortenedLink }}</a>   
         </div>
-        <div v-if="shortenedLink" class="col-md-12">
-            <div class="mb-3">
-                <label class="form-label">Shortened Link : </label>
-                <input type="text" class="form-control" v-model="shortenedLink"/>
-            </div>
-        </div>
-     </form>
+        <div class="link-shortener__actions">
+            <button class="btn btn-outline-primary" @click.prevent="shortenedLink = ''">Reset</button>
+            <button class="btn btn-outline-success" @click.prevent="copyFn(shortenedLink)">Copy</button>
+        </div>   
     </div>
   </div>
 </template>
@@ -34,52 +25,73 @@
 import { ref } from "vue";
 import { shortenLink } from "../utils/shortenLink";
 
+import { useClipboard } from '@vueuse/core';
+
 const link = ref("");
 const shortenedLink = ref("");
+const copied = ref(false);
+
+const { text, isSupported, copy } = useClipboard()
 
 const shortenLinkAction = async () => {
     try {
-        debugger
         const res = await shortenLink(link.value);
         shortenedLink.value = res.link;
     } catch (error) {
         console.log(error);
     }
 };
+
+const copyFn = async(txt: string) => {
+    await copy(txt);
+    console.log(text.value);
+}
 </script>
 
 <style lang="scss" scoped>
 .link-shortener {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+  padding: 5px;
+  border: 1px var(--bs-gray-300) solid;
+  border-radius: 5px;
   height: 100%;
-  padding: 20px;
-  background-color: #f5f5f5;
-
-  &__header {
+  margin-top: 10px;
+  $self: &;
+  &__form {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    #{$self}__input {
+        flex-grow: 1;
+        margin-right: 5px;
+    }
+    #{$self}__button {
+        flex-grow: 0;
+    }
+  }
+  &__result {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     width: 100%;
-    margin-bottom: 20px;
-
-    &__title {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      margin-bottom: 10px;
-
-      &-text {
-        font-size: 2rem;
-        font-weight: bold;
-        color: #333;
-      }
+    height: 500px;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 15px;
+    #{$self}__text {
+        flex-grow: 1;
+    }
+    #{$self}__actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+        flex-grow: 0;
+        button {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
     }
   }
 }

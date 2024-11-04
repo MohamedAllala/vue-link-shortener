@@ -10,12 +10,14 @@
   },
   "dependencies": {
     "@vitejs/plugin-vue": "^5.1.4",
+    "@vueuse/core": "^11.2.0",
     "axios": "^1.7.7",
     "bootstrap": "5.2.3",
     "typescript": "~5.6.2",
     "vite": "^5.4.10",
     "vue": "^3.5.12",
-    "vue-tsc": "^2.1.8"
+    "vue-tsc": "^2.1.8",
+    "vue3-clipboard": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.8.7",
