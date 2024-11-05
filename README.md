@@ -49,3 +49,7 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 This project is a url shortener. You can use it to shorten your links.
 API provided by [Link Shortener](https://bitly.com/)
+
+### Live Demo
+
+https://vue-link-shortener-7cf9iwb4u-mohamedallalas-projects.vercel.app/

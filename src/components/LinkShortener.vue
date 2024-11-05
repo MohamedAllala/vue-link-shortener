@@ -4,7 +4,7 @@
     <div class="link-shortener__form">
         <input type="text" class="form-control link-shortener__input"  placeholder="link goes here ..." v-model="link">
         <button class="btn link-shortener__button" :class="link.length > 0 ? 'btn-primary' : 'btn-secondary'" 
-                :disabled="!link.length > 0" @click.prevent="shortenLinkAction">
+                @click.prevent="shortenLinkAction">
                     shorten 
         </button>
     </div>
@@ -29,9 +29,8 @@ import { useClipboard } from '@vueuse/core';
 
 const link = ref("");
 const shortenedLink = ref("");
-const copied = ref(false);
 
-const { text, isSupported, copy } = useClipboard()
+const { text, copy } = useClipboard()
 
 const shortenLinkAction = async () => {
     try {
